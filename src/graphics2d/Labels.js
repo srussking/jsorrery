@@ -119,11 +119,11 @@ export default {
 
 	draw(camPos, fov, w, h) {
 		// currentCamera.getWorldPosition();
-		if (w !== sceneW || h !== sceneH) {
-			sceneW = w;
-			sceneH = h;
-			halfSceneW = sceneW / 2;
-		}
+		// if (w !== sceneW || h !== sceneH) {
+		// 	sceneW = w;
+		// 	sceneH = h;
+		// 	halfSceneW = sceneW / 2;
+		// }
 		labels.map(positionLabel, { camPos, fov });
 	},
 

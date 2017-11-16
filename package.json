@@ -10,7 +10,8 @@
   "scripts": {
     "start": "node server.js",
     "lint": "eslint src",
-    "build": "webpack -d --config ./webpack/dev.config.js"
+    "dev-build": "webpack -d --config ./webpack/dev.config.js",
+    "prod-build": "webpack -p --config ./webpack/prod.config.js "
   },
   "version": "1.0.0",
   "homepage": "http://la-grange.ca",

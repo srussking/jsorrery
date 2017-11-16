@@ -30,7 +30,7 @@ export default {
 		this.universe = universe;
 		this.bodies3d = [];
 		this.bodyScale = 1;
-		this.container = $(`<div id="universe" width="${this.width}" height="${this.height}">`).appendTo('body');
+		this.container = $(`<div id="universe" width="100vw" height="100vh">`).appendTo('#universe_container');
 		this.root = new Scene();
 
 		DebugPoint.setContainer(this.root);
@@ -75,7 +75,19 @@ export default {
 		TracerManager.init(this.root);
 
 		this.setMilkyway();
+		this.setResizeListener(renderer);
+	},
 
+	setResizeListener(renderer){
+		window.addEventListener( 'resize', function(){
+			let camera = CameraManager.getCamera();
+			if(camera && renderer){
+				renderer.setSize(window.innerWidth, window.innerHeight);
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				CameraManager.updateCamera()
+			}
+		}, false );
 	},
 
 	setCameraDefaults(settings) {
