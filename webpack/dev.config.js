@@ -9,7 +9,6 @@ var csswring = require('csswring');
 module.exports = {
 	devtool: 'cheap-module-eval-source-map',
 	entry: [
-		'webpack-hot-middleware/client',
 		'./src/index',
 	],
 
@@ -58,7 +57,7 @@ module.exports = {
 		loaders: [
 		{
 			test: /\.js$/,
-			loaders: ['babel-loader', 'eslint-loader'],
+			loaders: ['babel-loader'],
 			exclude: /node_modules/,
 		},
 		// {
@@ -92,7 +91,10 @@ module.exports = {
 		// },  
 		{
 			test: /\.scss$/,
-			loader: 'css?localIdentName=[path]!postcss-loader!sass',
+			loader: ExtractTextPlugin.extract(
+					'style-loader', // backup loader when not building .css file
+					'css-loader!sass-loader' // loaders to preprocess CSS
+			)
 		}, {
 			test: /\.png$/,
 			loader: 'file?name=[name].[ext]',

@@ -44,41 +44,55 @@ module.exports = {
 	},
 
 	module: {
-		loaders: [{
-			test: /bootstrap\/js\//,
-			loader: 'imports?jQuery=jquery',
-		}, {
-			test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-			loader: 'url?limit=10000&mimetype=application/font-woff',
-		}, {
-			test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-			loader: 'url?limit=10000&mimetype=application/font-woff2',
-		}, {
-			test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-			loader: 'url?limit=10000&mimetype=application/octet-stream',
-		}, {
-			test: /\.otf(\?v=\d+\.\d+\.\d+)?$/,
-			loader: 'url?limit=10000&mimetype=application/font-otf',
-		}, {
-			test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-			loader: 'file',
-		}, {
-			test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-			loader: 'url?limit=10000&mimetype=image/svg+xml',
-		}, {
-			test: /\.js$/,
-			loaders: ['babel-loader', 'eslint-loader'],
-			exclude: /node_modules/,
-		}, {
-			test: /\.scss$/,
-			loader: 'css!postcss-loader!sass',
-		}, {
-			test: /\.png$/,
-			loader: 'file?name=[name].[ext]',
-		}, {
-			test: /\.jpg$/,
-			loader: 'file?name=[name].[ext]',
-		}],
+		loaders: [
+			{
+				test: /\.js$/,
+				loaders: ['babel-loader'],
+				exclude: /node_modules/,
+			},
+			// {
+			// 	// Only apply on tinymce/tinymce
+			// 	include: require.resolve('tinymce/tinymce'),
+			// 	// Export window.tinymce
+			// 	loader: 'exports?window.tinymce',
+			//    },
+			{
+				test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
+				loader: 'url-loader'
+			},
+			// {
+			// 	test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+			// 	loader: 'url?limit=10000&mimetype=application/font-woff',
+			// }, {
+			// 	test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+			// 	loader: 'url?limit=10000&mimetype=application/font-woff2',
+			// }, {
+			// 	test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+			// 	loader: 'url?limit=10000&mimetype=application/octet-stream',
+			// }, {
+			// 	test: /\.otf(\?v=\d+\.\d+\.\d+)?$/,
+			// 	loader: 'url?limit=10000&mimetype=application/font-otf',
+			// }, {
+			// 	test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+			// 	loader: 'file',
+			// }, {
+			// 	test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+			// 	loader: 'url?limit=10000&mimetype=image/svg+xml',
+			// },
+			{
+				test: /\.scss$/,
+				loader: ExtractTextPlugin.extract(
+						'style-loader', // backup loader when not building .css file
+						'css-loader!sass-loader' // loaders to preprocess CSS
+				)
+			}, {
+				test: /\.png$/,
+				loader: 'file?name=[name].[ext]',
+			}, {
+				test: /\.jpg$/,
+				loader: 'file?name=[name].[ext]',
+			}
+		],
 	},
 	postcss: function() {
 		return [autoprefixer({ browsers: ['last 2 versions', 'safari 5', 'ie 9', 'ios 6', 'android 4'] }), csswring];

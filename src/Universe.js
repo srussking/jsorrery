@@ -34,6 +34,10 @@ export default {
 			this.playing = !this.playing;
 		}, 'p');
 
+	  var that = this;
+		window.addEventListener('jsorrery_play', function (e) { that.playing = true }, false);
+		window.addEventListener('jsorrery_pause', function (e) { that.playing = false }, false);
+
 		this.dateDisplay = Gui.addDate(() => {
 			this.playing = false;
 			this.setJD(getJD(this.dateDisplay.getDate()));
@@ -42,7 +46,7 @@ export default {
 
 		this.ticker = () => this.tick();
 		
-		this.playing = false;
+		this.playing = true;
 		this.drawRequested = false;
 
 		const date = this.dateDisplay.getDate() || new Date();

@@ -66,7 +66,7 @@ function getEventLabelCallback(el, pos, relativeTo) {
 			Dimensions.getScaled(pos.clone().add(relativeTo.getPosition())),
 			camPos
 		);
-		if (screenCoords && halfSceneW) {
+		if (screenCoords) {
 			angle = ((screenCoords.x - halfSceneW) / halfSceneW) * EVENT_LABEL_MAX_ANGLE;
 			radAngle = angle * DEG_TO_RAD;
 			tipPos = { x: Math.sin(radAngle) * EVENT_LABEL_LINE_H, y: -Math.cos(radAngle) * EVENT_LABEL_LINE_H };
@@ -86,10 +86,22 @@ export default {
 	init() {
 		if (labels) this.kill();
 		labels = [];
+		sceneW = $(window).width();
+		sceneH = $(window).height();
+		halfSceneW = sceneW / 2;
+
+		window.addEventListener( 'resize', this.onWindowResize, false );
+
+	},
+
+	onWindowResize(){
+		sceneW = window.innerWidth;
+		sceneH = window.innerHeight;
+		halfSceneW = sceneW /2;
 	},
 
 	addPlanetLabel(title, body3d) {
-		const el = $(`<div class="planetSpot" data-shown="true"><div class="planetLabel">${title}</div></div>`).appendTo('body');
+		const el = $(`<div class="planetSpot" data-shown="true"><div class="planetLabel">${title}</div></div>`).appendTo('#universe_container');
 		
 		labels.push({
 			el,
@@ -98,7 +110,7 @@ export default {
 	},
 
 	addEventLabel(tx, pos, relativeTo) {
-		const el = $(`<div class="eventLabel"><div class="line"></div><div class="tx">${tx}</div></div>`).appendTo('body');
+		const el = $(`<div class="eventLabel"><div class="line"></div><div class="tx">${tx}</div></div>`).appendTo('#universe_container');
 		labels.push({
 			el,
 			callback: getEventLabelCallback(el, pos, relativeTo),
