@@ -16,7 +16,7 @@ const baseRotation = (((J2000Date - solstice) / 1000) / (YEAR * DAY));
 // let testTilt = 0;
 
 export const earth = {
-	title: 'The Earth',
+	title: 'Earth',
 	name: 'earth',
 	mass: 5.9736e24,
 	radius: 3443.9307 * NM_TO_KM,

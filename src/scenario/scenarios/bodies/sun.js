@@ -5,7 +5,7 @@ import Sun from '../../../graphics3d/Sun';
 export const radius = 6.96342e5;
 
 export const sun = {
-	title: 'The Sun',
+	title: 'Sun',
 	name: 'sun',
 	mass: 1.9891e30,
 	radius,
